@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Updated Smackdown Spinner - 5 Columns</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #ec4899;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 { margin-bottom: 30px; color: var(--primary); text-align: center; }
+
+        .controls {
+            margin-bottom: 30px;
+        }
+
+        .spin-all-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+        }
+
+        .spin-all-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .spinner-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 5px solid var(--primary);
+        }
+
+        .column-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #64748b;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .result-display {
+            font-size: 1.3rem;
+            font-weight: 800;
+            min-height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            color: var(--text);
+        }
+
+        .spin-single-btn {
+            padding: 8px 16px;
+            background: #e2e8f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .spin-single-btn:hover {
+            background: #cbd5e1;
+        }
+
+        .spinning {
+            animation: blur-text 0.1s infinite;
+        }
+
+        @keyframes blur-text {
+            0% { filter: blur(0px); opacity: 1; }
+            50% { filter: blur(4px); opacity: 0.5; }
+            100% { filter: blur(0px); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Smackdown Situation Spinner</h1>
+
+    <div class="controls">
+        <button class="spin-all-btn" onclick="spinAll()">SPIN ALL COLUMNS</button>
+    </div>
+
+    <div class="grid">
+        <div class="spinner-card">
+            <div class="column-title">Coachee</div>
+            <div id="res-0" class="result-display">Ready?</div>
+            <button class="spin-single-btn" onclick="spinColumn(0)">Spin Coachee</button>
+        </div>
+
+        <div class="spinner-card">
+            <div class="column-title">Situation</div>
+            <div id="res-1" class="result-display">Ready?</div>
+            <button class="spin-single-btn" onclick="spinColumn(1)">Spin Situation</button>
+        </div>
+
+        <div class="spinner-card">
+            <div class="column-title">Disposition</div>
+            <div id="res-2" class="result-display">Ready?</div>
+            <button class="spin-single-btn" onclick="spinColumn(2)">Spin Disposition</button>
+        </div>
+
+        <div class="spinner-card">
+            <div class="column-title">Extra Issue</div>
+            <div id="res-3" class="result-display">Ready?</div>
+            <button class="spin-single-btn" onclick="spinColumn(3)">Spin Issue</button>
+        </div>
+
+        <div class="spinner-card">
+            <div class="column-title">Extra Trait</div>
+            <div id="res-4" class="result-display">Ready?</div>
+            <button class="spin-single-btn" onclick="spinColumn(4)">Spin Trait</button>
+        </div>
+    </div>
+
+    <script>
+        const data = [
+            // 0: Coachee
+            ["Teacher(s)", "Student(s)", "Parent(s)", "Administrator(s)", "Teacher team", "Leadership team", "PLC Coach"],
+            
+            // 1: Situation
+            ["Prometheon board that keeps glitching and freezing on teacher's personal photos", "Chromebook has a \"flipped\" screen", "Forgot password", "Forgot the passcode to their iPad", "592 tabs are open and \"nothing works\"", "Computer's language is in Japanese. They only speak English", "Submitted assignment on Canvas/Google Classroom, but it's nowhere to be seen", "Using an unsupported tool that requires students to enter their email, name, birthday, and address", "Playing games on chromebooks all day and not completing school work", "Deleted their Skyward generated course in Canvas instead of their sandbox", "Scanning a worksheet, making it a PDF, and then adding it to Canvas/Google Classroom", "Help creating a more interactive lesson from their stale slidedeck", "Training on technology framework", "Use AI to help with literacy", "Use AI to help with math", "Use AI for student feedback", "Help using Adobe, Canva, or Lucid for a district competition", "Create an AI video of them dancing and sharing daily school announcements", "Help analyzing data from non-common assessments", "Inputing a 100 question multiple choice test into Mastery Connect", "Help catching students cheating", "How to catch students using AI to plagiarize", "Learning how to quickly block sites on Blocksi", "Create the most epic learning lunch ever", "Help choosing one AI tool over another", "Help using immersive reader tools", "Tools to help ML students", "Tools to help students with IEPs", "Help team with most Fs in the school", "Someone deleted a Google document with 3 years of notes", "Use live translate in M365 to support ML students", "Grades will not sync to Skyward (combined gradebook)", "Grades will not sync to Skyward (CE classes)", "Interested in blended learning", "Help with leveling and differentiating texts", "Refuse to share resources or data", "What technology is worth purchasing", "Gather exit tickets from a meeting or class", "Restoring Notability on iPad", "Use AI for more than just dad jokes", "Fallen prey to several phishing attacks", "Understand that gamification is not playing board games 24/7", "Exit ticket contains 38 short answer questions", "ILC should be able predict future tech failures", "Understand ELLevation \"Can-do\" descriptions", "Too many font choices in Canva", "\"Spy\" on a teacher through supported tools", "Investigate a student's internet usage", "being sent to the office because of being off-task on chromebook", "Swallowed a rubber band", "Received email at 11pm for an 8am setup", "Capture and edit an audio file of a bird and analyze it on an oscilloscope", "Amping up the \"vibes\" of class", "Blocksi is too time consuming", "Safari won't load", "Help with rosters in Skyward not matching other tools", "Roasting marshmallows in the middle of the hallway", "Add Proctorio as a supported solution", "Run a team time", "Hallway duty", "Create amazing flyer for an upcoming activity", "Use Google Docs in the classroom for a project"],
+
+            // 2: Disposition of Coachee
+            ["Angry", "Embarrassed", "Confident", "Excited", "Nervous", "Anxious", "Sad", "Happy", "Exhausted", "Busy", "Stressed", "Focused", "Open-Minded", "Closed-Minded", "Belligerent", "Forgetful", "Sleepy", "Ornery", "Bubbly", "Innovative", "Humorous", "Grateful", "Ungrateful"],
+
+            // 3: Extra Issue of Coachee or ILC (1) 
+            ["Allergic to Mondays", "Easily distracted by snacks", "Overly committed to napping", "Trips over invisible objects", "Forgets why they walked into a room", "Weak against dad jokes", "Needs GPS to find the remote", "Can’t stop overthinking simple decisions", "Always accidentally cheers at the wrong moment", "Weakness for free samples", "Talks to plants like they’re coworkers", "Runs out of breath tying shoes", "Dangerously ticklish", "Turns into a burrito when wrapped in blankets", "Can’t resist pushing big red buttons", "Thinks every dog is their dog", "Believes all Wi-Fi problems are personal attacks", "Loses pen 5 seconds after picking it up", "Overly dramatic sneezer", "Addicted to reorganizing", "Can’t whisper quietly", "Confuses left and right", "Suddenly forgets how to walk on flat ground", "Can’t open anything with “tear here”", "Weakness for cute baby animals", "Glitches when people talk at once", "Melts in warm laundry", "Hypnotized by spinning chair", "Can’t NOT touch wet paint", "Accidentally waves back at people who weren’t waving", "Always thinks they have one more step", "Loses phone while holding it", "Bad at keeping indoor voices indoors", "Can’t resist bubble wrap", "Weak to puns", "Mistakes strangers for people they know", "Says “you too!” to waiters", "Gets emotionally attached to snacks", "Cries when onions cry", "Not fast, but very enthusiastic", "Surprisingly terrible at parallel parking", "Fear of running out of cereal", "Believes every sock has feelings", "Confused by simple remotes", "Weakness for pizza smells", "Laughs at their own jokes", "Trips when thinking too hard", "Can’t resist mimicking silly dance moves", "Takes too long picking a seat", "Overly honest high-five attempts", "Confuses strangers’ shopping carts", "Forgets laundry in washer… forever", "Extremely competitive", "Mistakenly sings the harmony to everything", "Breaks into interpretive dance under stress", "Overreacts to cold floors", "Mishears song lyrics confidently", "Panics when someone says “We need to talk”", "Weakness for perfectly round rocks", "Thinks they're whispering but they're not", "Gets lost in their own neighborhood", "Laughs too hard at bad spelling", "Can’t open jars without pep talks", "Talks too long to babies", "Leaves one grocery item behind", "Accidentally clicks “reply all”", "Weakness for scented markers", "Eats snacks in alphabetical order"],
+
+            // 4: Extra Issue of Coachee or ILC (2) 
+            ["Light manipulation", "Healing touch", "Plant growth acceleration", "Water shaping", "Air gliding", "Stone whispering", "Cloud sculpting", "Gentle telekinesis", "Aura reading", "Emotional soothing", "Empathic projection", "Harmony weaving", "Sound shaping", "Light-speed learning", "Perfect memory recall", "Shadow softening", "Animal communication", "Forest guardian sense", "Weather calming", "Star navigation", "Solar recharge", "Instant clarity", "Dream walking", "Thought sharing", "Telepathic encouragement", "Gravity lightening", "Mist summoning", "Levitation", "Time perception control", "Plant empathy", "Stone shaping", "Universal translation", "Hope projection", "Energy balancing", "Kindness amplification", "Courage infusion", "Creativity spark", "Harmony field generation", "Gentle force fields", "Photographic listening", "Musically enhanced magic", "Dream message sending", "Memory healing", "Emotional grounding", "Air cleansing", "Tech intuition", "Digital empathy", "Hologram creation", "Friendly AI communication", "Robot calming", "Inspiration channeling", "Mood lighting", "Floating objects", "Shadow lantern creation", "Sanctuary creation", "Magic-infused crafting", "Pocket dimension storage", "Harmony with machines", "Healing hum", "Luminant voice", "Inspiring presence", "Mythic animal empathy", "Elemental balancing", "Magical scent creation", "Emotion painting", "Friendly ghost communication", "Hyper-sensing kindness"]
+        ];
+
+        function getRandomItem(colIndex) {
+            const list = data[colIndex];
+            return list[Math.floor(Math.random() * list.length)];
+        }
+
+        function spinColumn(colIndex) {
+            const display = document.getElementById(`res-${colIndex}`);
+            display.classList.add('spinning');
+            setTimeout(() => {
+                display.innerText = getRandomItem(colIndex);
+                display.classList.remove('spinning');
+            }, 800);
+        }
+
+        function spinAll() {
+            for (let i = 0; i < 5; i++) {
+                spinColumn(i);
+            }
+        }
+    </script>
+</body>
+</html>
